@@ -1,0 +1,18 @@
+# virtual environment
+.venv/
+venv/
+
+# python cache
+__pycache__/
+*.pyc
+
+# jupyter
+.ipynb_checkpoints/
+
+# data & model artifacts (local only)
+data/
+models/
+
+# OS / editor
+.DS_Store
+.vscode/

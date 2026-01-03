@@ -1,0 +1,43 @@
+파일 역할(뼈대)
+
+common/paths.py
+
+레포 루트 기준 경로( data/raw, data/processed, models, reports/figures )를 한 곳에서 관리
+
+common/utils.py
+
+시드 고정, 간단 로깅, 공통 헬퍼(예: set_seed, ensure_dir)
+
+common/io.py
+
+데이터 로드/저장(CSV/Parquet), train/valid split 같이 “범용” IO
+
+common/metrics.py
+
+회귀/분류 공통 평가 함수 래퍼(예: rmse, classification_report_dict)
+
+common/plotting.py
+
+공통 플롯 저장 함수(예: save_fig, plot_confusion_matrix)
+
+ch02/housing.py
+
+Ch2 전용: 주택가격 데이터 파이프라인/특성 엔지니어링/학습 흐름
+
+ch03/mnist.py
+
+Ch3 전용: MNIST 로드/이진분류/PR-ROC 관련 유틸
+
+ch04/training.py
+
+Ch4 전용: 선형모델/규제/SGD 등 학습 관련 유틸
+
+운영 규칙(짧게)
+
+노트북에서 2번 이상 쓰는 코드 → common/으로 승격
+
+챕터에서만 쓰는 코드 → chXX/에 둔다
+
+공통으로 승격할 때는 “범용 이름”으로 바꾼다
+
+예: mnist_load() (X) → load_image_dataset() (O) 또는 load_mnist()는 ch03 유지

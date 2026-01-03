@@ -1,0 +1,74 @@
+# 레포 루트에서 실행 (예: C:\Users\jh\Git\<repo>)
+# 폴더/파일 뼈대 한번에 생성 (이미 있으면 에러 없이 넘어가도록 일부 처리)
+
+$dirs = @(
+  "notebooks",
+  "src", "src\common", "src\ch02", "src\ch03", "src\ch04",
+  "data\raw", "data\processed",
+  "models",
+  "reports\figures", "reports\metrics", "reports\notes",
+  "scripts",
+  "tests"
+)
+
+foreach ($d in $dirs) { New-Item -ItemType Directory -Path $d -Force | Out-Null }
+
+$files = @(
+  "src\__init__.py",
+  "src\common\__init__.py",
+  "src\ch02\__init__.py",
+  "src\ch03\__init__.py",
+  "src\ch04\__init__.py",
+  "src\common\paths.py",
+  "src\common\utils.py",
+  "src\common\io.py",
+  "src\common\metrics.py",
+  "src\common\plotting.py",
+  "src\ch02\housing.py",
+  "src\ch03\mnist.py",
+  "src\ch04\training.py",
+  "scripts\run_ch02.py",
+  "scripts\run_ch03.py",
+  "tests\test_smoke.py",
+  "requirements.txt",
+  "README.md",
+  ".gitignore"
+)
+
+foreach ($f in $files) { New-Item -ItemType File -Path $f -Force | Out-Null }
+
+# .gitignore 기본 내용 채우기
+$gitignore = @"
+# virtual environment
+.venv/
+venv/
+
+# python cache
+__pycache__/
+*.pyc
+
+# jupyter
+.ipynb_checkpoints/
+
+# data & model artifacts (local only)
+data/
+models/
+
+# OS / editor
+.DS_Store
+.vscode/
+"@
+Set-Content -Path ".gitignore" -Value $gitignore -Encoding UTF8
+
+# README 최소 내용
+$readme = @"
+# Hands-On ML (Study Repo)
+
+- notebooks/: chapter notebooks
+- src/: reusable code (common + per-chapter helpers)
+- data/, models/: local artifacts (gitignored)
+- reports/: figures/metrics/notes
+"@
+Set-Content -Path "README.md" -Value $readme -Encoding UTF8
+
+Write-Host "Done. Skeleton created."
